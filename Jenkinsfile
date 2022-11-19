@@ -39,44 +39,6 @@ pipeline {
                 }
             }
         }
-/*         stage('Test'){
-            steps{
-                echo 'Testing...'
-                //slackSend color: "warning", message: "Testing..."
-                sh './mvnw test -e'
-            }
-            post {
-                success {
-                    echo 'Test Success'
-                    //slackSend color: "good", message: "Test Success"
-                }
-                failure {
-                    echo 'Test Failed'
-                    //slackSend color: "danger", message: "Test Failed"
-                }
-            }
-        }
- */  
-
-//   stage('Package')
-//   {
-//             steps{
-//                 //Duda
-//                 echo 'Packaging...'
-//                 //slackSend color: "warning", message: "Packaging..."
-//                 sh './gradlew assemble'
-//             }
-//             post {
-//                 success {
-//                     echo 'Package Success'
-//                     //slackSend color: "good", message: "Package Success"
-//                 }
-//                 failure {
-//                     echo 'Package Failed'
-//                     //slackSend color: "danger", message: "Package Failed"
-//                 }
-//             }
-//         }
 
         stage('Sonar'){
             steps{
@@ -96,28 +58,47 @@ pipeline {
                 }
             }
         }
-        // stage('uploadNexus'){
-        //     steps{
-        //         echo 'Uploading to Nexus...'
-        //         slackSend color: "warning", message: "Uploading to Nexus..."
-        //         sh './mvnw clean install -e'
-        //         nexusPublisher nexusInstanceId: 'nexus01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
-        //         // nexusPublisher nexusInstanceId: 'nexus01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'fancyWidget', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
-        //         // nexusPublisher nexusInstanceId: 'nexus01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '${WORKSPACE}/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'fancyWidget', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
-        //         // nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '${WORKSPACE}/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'fancyWidget', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
-        //         //, tagName: 'build-125'
 
-        //     }
-        //     post {
-        //         success {
-        //             echo 'Upload Success'
-        //             slackSend color: "good", message: "Upload Success"
-        //         }
-        //         failure {
-        //             echo 'Upload Failed'
-        //             slackSend color: "danger", message: "Upload Failed"
-        //         }
-        //     }
+        stage('Run & Test'){
+            steps{
+                //No es necesario hacer Kill del proceso
+                echo 'Running Jar...'
+                //slackSend color: "warning", message: "Running Jar..."
+                //sh 'java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &'
+                sh './gradlew bootRun&'
+                sleep(60)
+                sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
+            }
+            post {
+                success {
+                    echo 'Run & Test Success'
+                    //slackSend color: "good", message: "Run Success"
+                }
+                failure {
+                    echo 'Run & Test Failed'
+                    //slackSend color: "danger", message: "Run Failed"
+                }
+            }
+        }
+
+
+        stage('uploadNexus'){
+            steps{
+                echo 'Uploading to Nexus...'
+                //slackSend color: "warning", message: "Uploading to Nexus..."
+                sh './mvnw clean install -e'
+                nexusPublisher nexusInstanceId: 'nexusserverid', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
+            }
+            post {
+                success {
+                    echo 'Upload Success'
+                    //slackSend color: "good", message: "Upload Success"
+                }
+                failure {
+                    echo 'Upload Failed'
+                    //slackSend color: "danger", message: "Upload Failed"
+                }
+            }
 
         // }
         // stage('downloadNexusArtefact'){
@@ -139,27 +120,6 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Run Jar'){
-            steps{
-                //No es necesario hacer Kill del proceso
-                echo 'Running Jar...'
-                //slackSend color: "warning", message: "Running Jar..."
-                //sh 'java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &'
-                sh './gradlew bootRun&'
-                sleep(60)
-                sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
-            }
-            post {
-                success {
-                    echo 'Run Success'
-                    //slackSend color: "good", message: "Run Success"
-                }
-                failure {
-                    echo 'Run Failed'
-                    //slackSend color: "danger", message: "Run Failed"
-                }
-            }
-        }
         // stage('sleep'){
         //     steps{
         //         echo 'Sleeping...'
