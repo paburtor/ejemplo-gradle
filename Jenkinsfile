@@ -6,6 +6,7 @@ pipeline {
         stage('INFO'){
             steps{
                 echo 'Info...'
+                cleanWs()
                 //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: ${GIT_BRANCH}"
             }
             post {
@@ -21,8 +22,9 @@ pipeline {
         }
         stage('Build & Test'){
             steps{
-                echo 'Building...'
-                //slackSend color: "warning", message: "Building..."
+                echo 'Building: Workspace -> [${env.WORKSPACE}]'
+                //slackSend color: "warning", message: "Building..."                                                
+                sh 'chmod -R 777 ${env.WORKSPACE}'
                 sh './gradlew build'
 
             }
