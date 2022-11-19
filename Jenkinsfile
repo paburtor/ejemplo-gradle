@@ -22,9 +22,9 @@ pipeline {
         }
         stage('Build & Test'){
             steps{
-                echo 'Building: Workspace -> [${WORKSPACE}]'
+                echo 'Building: Workspace -> [$WORKSPACE]'
                 //slackSend color: "warning", message: "Building..."                                                
-                sh 'chmod -R 777 ${WORKSPACE}'
+                sh 'chmod -R 777 $WORKSPACE'
                 sh './gradlew build'
 
             }
