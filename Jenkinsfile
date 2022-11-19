@@ -27,35 +27,51 @@ pipeline {
                 }
             }
         }
-
-        stage('Build'){
-            steps{
+               
+        stage('Build Gradle')
+        {
+            when { expression { return params.Tool == 'gradle'} }
+            steps 
+            { 
                 echo 'Building: Workspace -> [${env.WORKSPACE}]'                
                 sh 'chmod -R 777 $WORKSPACE'
                 sh './gradlew build'
-                
-                //script {
-                //    if (params.PARAM_TOOL") == 'gradle') {
-                 //       echo 'Seleccionó Gradle'
-                        sh './gradlew build'
-                 //   } else {
-                  //      echo 'Seleccionó Maven'
-                    //    sh './gradlew build'
-                    //}
-                //}                                                                                                                     
-            }
+            }                                               
+       }
             post {
                 success {
-                    echo 'Build Success'
+                    echo 'Build Success Gradle'
                     //slackSend color: "good", message: "Build Success"
                 }
                 failure {
-                    echo 'Build Failed'
+                    echo 'Build Failed Gradle'
                     //slackSend color: "danger", message: "Build Failed"
                 }
             }
         }
 
+        stage('Build Maven')
+        {
+            when { expression { return params.Tool == 'maven'} }
+            steps 
+            { 
+                echo 'Building: Workspace -> [${env.WORKSPACE}]'                
+                sh 'chmod -R 777 $WORKSPACE'
+                sh './gradlew build'
+            }                                               
+       }
+            post {
+                success {
+                    echo 'Build Success Maven'
+                    //slackSend color: "good", message: "Build Success"
+                }
+                failure {
+                    echo 'Build Failed Maven'
+                    //slackSend color: "danger", message: "Build Failed"
+                }
+            }
+        }
+    
         stage('Sonar'){
             steps{
                 echo 'Sonar...'
