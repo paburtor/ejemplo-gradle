@@ -38,14 +38,14 @@ pipeline {
                     if(params.Tool == 'gradle') 
                     {
                         echo 'Invocando script gradle.groovy'
-                        code = load 'gradle.groovy'
-                        ejecucion.call()                        
+                        script = load 'gradle.groovy'
+                        script.call()                        
                     }
                     else
                     {
                         echo 'Invocando script maven.groovy'
-                        code = load 'maven.groovy'
-                        ejecucion.call()                        
+                        script = load 'maven.groovy'
+                        script.call()                        
                     }
                 }
             }
