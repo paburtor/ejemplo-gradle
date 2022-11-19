@@ -8,26 +8,26 @@ node {
     try {
         stage('Build'){
             echo '(Pre) Building.....'
-            sh 'mvn clean compile -e'
+            sh './mvnw clean compile -e'
             echo '(Post) Building'
         }
         //slackSend color: "good", message: "Build Success"
         stage('Test'){
             echo "(Pre) Testing"
-            sh 'mvn test -e'
+            sh './mvnw test -e'
             echo "(Post) Testing"
         }
         slackSend color: "good", message: "Test Success"
         stage('Package'){
             echo "(Pre) Packaging"
-            sh './mvn package -e'
+            sh './mvnw package -e'
             echo "(Post) Packaging"
         }
         //slackSend color: "good", message: "Packaging Success"
         stage('Sonar'){
             echo '(Pre) Sonar'
             withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
-                sh './mvn clean package sonar:sonar'
+                sh './mvnw clean package sonar:sonar'
             }
             echo '(Post) Sonar'
         }
