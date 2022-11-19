@@ -67,7 +67,7 @@ pipeline {
                 //slackSend color: "warning", message: "Running Jar..."
                 //sh 'java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &'
                 sh './gradlew bootRun&'
-                sleep(60)
+                sleep(45)
                 sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
             }
             post {
