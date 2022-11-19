@@ -142,10 +142,10 @@ pipeline {
             steps{
                 echo 'Running Jar...'
                 //slackSend color: "warning", message: "Running Jar..."
-                //nohup java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &
-                sh './gradlew bootRun&'
-                sleep(10)
-                sh 'curl -I GET http://localhost:8081/rest/mscovid/test?msg=testing > response.txt'
+                sh 'java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &'
+                //sh './gradlew bootRun&'
+                sleeP(30)
+                sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing > response.txt'
             }
             post {
                 success {
