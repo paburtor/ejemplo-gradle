@@ -78,7 +78,7 @@ pipeline {
             steps{
                 echo 'Sonar...'
                 withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
-                    sh '-Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                    sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                 }
             }
             post {
