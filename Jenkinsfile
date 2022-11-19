@@ -11,7 +11,7 @@ node {
     {
         stage('Build')
         {
-            echo "(Pre) Building....."
+            echo "(Pre) Building........"
             checkout scm
             sh './mvnw clean compile -e'
             echo '(Post) Building'
