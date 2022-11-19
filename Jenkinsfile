@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        stage('Build & Test'){
+        stage('Build'){
             steps{
                 echo 'Building: Workspace -> [${env.WORKSPACE}]'
                 //slackSend color: "warning", message: "Building..."                                                
@@ -30,11 +30,11 @@ pipeline {
             }
             post {
                 success {
-                    echo 'Build & Test Success'
+                    echo 'Build Success'
                     //slackSend color: "good", message: "Build Success"
                 }
                 failure {
-                    echo 'Build & Test Failed'
+                    echo 'Build Failed'
                     //slackSend color: "danger", message: "Build Failed"
                 }
             }
@@ -56,42 +56,44 @@ pipeline {
                 }
             }
         }
- */        
- /* stage('Package'){
-            steps{
-                echo 'Packaging...'
-                //slackSend color: "warning", message: "Packaging..."
-                sh './mvnw package -e' gradle bootRun
-            }
-            post {
-                success {
-                    echo 'Package Success'
-                    //slackSend color: "good", message: "Package Success"
-                }
-                failure {
-                    echo 'Package Failed'
-                    //slackSend color: "danger", message: "Package Failed"
-                }
-            }
-        } */
-        stage('Sonar'){
-            steps{
-                echo 'Sonar...'
-                withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
-                    sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
-                }
-            }
-            post {
-                success {
-                    echo 'SONAR Success'
-                    //slackSend color: "good", message: "Sonar Success. Branch: ${GIT_BRANCH}"
-                }
-                failure {
-                    echo 'SONAR Failed'
-                    //slackSend color: "danger", message: "Sonar Failed."
-                }
-            }
-        }
+ */  
+
+//   stage('Package'){
+//             steps{
+//                 echo 'Packaging...'
+//                 //slackSend color: "warning", message: "Packaging..."
+//                 sh './mvnw package -e' gradle bootRun
+//             }
+//             post {
+//                 success {
+//                     echo 'Package Success'
+//                     //slackSend color: "good", message: "Package Success"
+//                 }
+//                 failure {
+//                     echo 'Package Failed'
+//                     //slackSend color: "danger", message: "Package Failed"
+//                 }
+//             }
+//         }
+
+//         stage('Sonar'){
+//             steps{
+//                 echo 'Sonar...'
+//                 withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
+//                     sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+//                 }
+//             }
+//             post {
+//                 success {
+//                     echo 'SONAR Success'
+//                     //slackSend color: "good", message: "Sonar Success. Branch: ${GIT_BRANCH}"
+//                 }
+//                 failure {
+//                     echo 'SONAR Failed'
+//                     //slackSend color: "danger", message: "Sonar Failed."
+//                 }
+//             }
+//         }
         // stage('uploadNexus'){
         //     steps{
         //         echo 'Uploading to Nexus...'
