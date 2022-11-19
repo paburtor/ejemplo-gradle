@@ -1,8 +1,18 @@
 node {
     def responseStatus = ''        
-    stage('INFO'){
+    stage('init')
+    {
         echo "Iniciando Job -> ${env.JOB_NAME}"
         cleanWs()
+        //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
+         // slackSend color: "good", message: "Info Success. hash commit : " + e
+    }
+    
+    stage('SCM')
+    {        
+        cleanWs()
+        checkout scm
+        sh 'chmod +x ./mvnw'
         //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
          // slackSend color: "good", message: "Info Success. hash commit : " + e
     }
@@ -11,8 +21,7 @@ node {
     {
         stage('Build')
         {
-            echo "(Pre) Building........"
-            checkout scm
+            echo "(Pre) Building........"            
             sh './mvnw clean compile -e'
             echo '(Post) Building'
         }
