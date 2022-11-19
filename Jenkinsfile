@@ -20,6 +20,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Build'){
             steps{
                 echo 'Building: Workspace -> [${env.WORKSPACE}]'
@@ -81,7 +82,6 @@ pipeline {
             }
         }
 
-
         stage('uploadNexus'){
             steps{
                 echo 'Uploading to Nexus...'
@@ -99,8 +99,8 @@ pipeline {
                     //slackSend color: "danger", message: "Upload Failed"
                 }
             }
+         }
 
-        // }
         // stage('downloadNexusArtefact'){
         //     steps{
         //         // cleanWs()    
