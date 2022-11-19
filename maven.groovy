@@ -43,8 +43,8 @@ def call()
       //No es necesario hacer Kill del proceso
       echo '(Pre)Run & Test Maven'        
       //slackSend color: "warning", message: "Running Jar..."      
-      sh 'nohup java -jar ./build/DevOpsUsach2020-0.0.1.jar &'
-      sleep(120)
+      sh './mvnw spring-boot:run &'
+      sleep(180)
       sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
       echo '(Post)Run & Test Maven'
   }
