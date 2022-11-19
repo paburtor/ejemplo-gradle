@@ -14,8 +14,8 @@ node {
         checkout scm
         echo "Workspace -> [${env.WORKSPACE}]"
         //sh 'chmod +wrx ${env.WORKSPACE}'
-        sh 'rm -rf .mvn'
-        sh 'chmod -R 777 ${env.WORKSPACE}'
+        //sh 'rm -rf /.mvn'
+        sh 'chmod -R 777 /var/jenkins_home/workspace/feature-gradle_feature-gradle'
         //sh 'find /var/jenkins_home/workspace/feature-gradle_feature-gradle -type d -exec chmod 755 {}'
         //sh 'chmod +x ./mvnw'
         //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
