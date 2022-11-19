@@ -58,23 +58,24 @@ pipeline {
         }
  */  
 
-//   stage('Package'){
-//             steps{
-//                 echo 'Packaging...'
-//                 //slackSend color: "warning", message: "Packaging..."
-//                 sh './mvnw package -e' gradle bootRun
-//             }
-//             post {
-//                 success {
-//                     echo 'Package Success'
-//                     //slackSend color: "good", message: "Package Success"
-//                 }
-//                 failure {
-//                     echo 'Package Failed'
-//                     //slackSend color: "danger", message: "Package Failed"
-//                 }
-//             }
-//         }
+  stage('Package')
+  {
+            steps{
+                echo 'Packaging...'
+                //slackSend color: "warning", message: "Packaging..."
+                sh './gradlew assemble'
+            }
+            post {
+                success {
+                    echo 'Package Success'
+                    //slackSend color: "good", message: "Package Success"
+                }
+                failure {
+                    echo 'Package Failed'
+                    //slackSend color: "danger", message: "Package Failed"
+                }
+            }
+        }
 
 //         stage('Sonar'){
 //             steps{
@@ -137,25 +138,25 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Run Jar'){
-            steps{
-                echo 'Running Jar...'
-                //slackSend color: "warning", message: "Running Jar..."
-                sh './gradlew bootRun&'
-                sleep(120)
-                sh 'curl -X GET -u https://localhost:8081/rest/mscovid/test?msg=testing'
-            }
-            post {
-                success {
-                    echo 'Run Success'
-                    //slackSend color: "good", message: "Run Success"
-                }
-                failure {
-                    echo 'Run Failed'
-                    //slackSend color: "danger", message: "Run Failed"
-                }
-            }
-        }
+        // stage('Run Jar'){
+        //     steps{
+        //         echo 'Running Jar...'
+        //         //slackSend color: "warning", message: "Running Jar..."
+        //         sh './gradlew bootRun&'
+        //         sleep(120)
+        //         sh 'curl -X GET -u https://localhost:8081/rest/mscovid/test?msg=testing'
+        //     }
+        //     post {
+        //         success {
+        //             echo 'Run Success'
+        //             //slackSend color: "good", message: "Run Success"
+        //         }
+        //         failure {
+        //             echo 'Run Failed'
+        //             //slackSend color: "danger", message: "Run Failed"
+        //         }
+        //     }
+        // }
         // stage('sleep'){
         //     steps{
         //         echo 'Sleeping...'
