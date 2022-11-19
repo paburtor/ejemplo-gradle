@@ -1,3 +1,7 @@
+ parameters 
+{        
+        choice(name: "BUILD_CHOICE", choices: ["maven", "gradle"], description: "Seleccione la herramienta de cosntrucción del código")
+    }
 node {
     def responseStatus = ''        
     stage('init')
@@ -12,11 +16,7 @@ node {
         cleanWs()
         checkout scm
         echo "Workspace -> [${env.WORKSPACE}]"
-        //sh 'chmod +wrx ${env.WORKSPACE}'
-        //sh 'rm -rf /.mvn'
         sh 'chmod -R 777 ${env.WORKSPACE}'
-        //sh 'find /var/jenkins_home/workspace/feature-gradle_feature-gradle -type d -exec chmod 755 {}'
-        //sh 'chmod +x ./mvnw'
         //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
          // slackSend color: "good", message: "Info Success. hash commit : " + e
     }
