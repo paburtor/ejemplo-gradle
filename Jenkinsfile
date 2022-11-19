@@ -38,16 +38,16 @@ pipeline {
                     if(params.Tool == 'gradle') 
                     {
                         echo 'Invocando script gradle.groovy'
-                        script = load 'gradle.groovy'
-                        script.call()                        
+                        script = load 'gradle.groovy'                                            
                     }
                     else
                     {
                         echo 'Invocando script maven.groovy'
-                        script = load 'maven.groovy'
-                        script.call()                        
+                        script = load 'maven.groovy'                        
                     }
                 }
+                
+                script.call()    
             }
             post {
                 success {
