@@ -1,5 +1,4 @@
 def responseStatus = ''
-def script = ''
 
 pipeline {
     agent any
@@ -38,13 +37,13 @@ pipeline {
                     if(params.Tool == 'gradle') 
                     {
                         echo 'Invocando script gradle.groovy'
-                        script = load 'gradle.groovy'
+                        def script = load 'gradle.groovy'
                         script.call()                        
                     }
                     else
                     {
                         echo 'Invocando script maven.groovy'
-                        script = load 'maven.groovy'
+                        def script = load 'maven.groovy'
                         script.call()                        
                     }
                 }
