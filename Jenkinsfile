@@ -78,24 +78,24 @@ pipeline {
 //             }
 //         }
 
-//         stage('Sonar'){
-//             steps{
-//                 echo 'Sonar...'
-//                 withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
-//                     sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
-//                 }
-//             }
-//             post {
-//                 success {
-//                     echo 'SONAR Success'
-//                     //slackSend color: "good", message: "Sonar Success. Branch: ${GIT_BRANCH}"
-//                 }
-//                 failure {
-//                     echo 'SONAR Failed'
-//                     //slackSend color: "danger", message: "Sonar Failed."
-//                 }
-//             }
-//         }
+        stage('Sonar'){
+            steps{
+                echo 'Sonar...'
+                withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
+                    sh '-Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                }
+            }
+            post {
+                success {
+                    echo 'SONAR Success'
+                    //slackSend color: "good", message: "Sonar Success. Branch: ${GIT_BRANCH}"
+                }
+                failure {
+                    echo 'SONAR Failed'
+                    //slackSend color: "danger", message: "Sonar Failed."
+                }
+            }
+        }
         // stage('uploadNexus'){
         //     steps{
         //         echo 'Uploading to Nexus...'
@@ -141,11 +141,12 @@ pipeline {
         // }
         stage('Run Jar'){
             steps{
+                //No es necesario hacer Kill del proceso
                 echo 'Running Jar...'
                 //slackSend color: "warning", message: "Running Jar..."
                 //sh 'java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &'
                 sh './gradlew bootRun&'
-                sleep(120)
+                sleep(60)
                 sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
             }
             post {
