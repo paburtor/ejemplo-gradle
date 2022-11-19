@@ -6,7 +6,7 @@
 
 def call()
 {  
-  stage('Build Gradle')
+  stage()
   {            
         steps 
         { 
