@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('INFO'){
             steps{
-                echo 'Info..........'
+                echo 'Info...........'
                 //cleanWs()
                 //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: ${GIT_BRANCH}"
             }
@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build'){
             steps{
                 echo 'Building: Workspace -> [${env.WORKSPACE}]'
