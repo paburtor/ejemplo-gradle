@@ -1,4 +1,5 @@
 def responseStatus = ''
+def script
 
 pipeline {
     agent any
@@ -36,21 +37,25 @@ pipeline {
                 {
                     if(params.Tool == 'gradle') 
                     {
-                        echo 'Build Gradle'
+                        echo 'Invocando script gradle.groovy'
+                        code = load 'gradle.groovy'
+                        ejecucion.call()                        
                     }
                     else
                     {
-                        echo 'Build Maven'
+                        echo 'Invocando script maven.groovy'
+                        code = load 'maven.groovy'
+                        ejecucion.call()                        
                     }
                 }
             }
             post {
                 success {
-                    echo 'Build Success $params.Tool'
+                    echo 'Build Success ' + params.Tool
                     //slackSend color: "good", message: "Build Success"
                 }
                 failure {
-                    echo 'Build Failed $params.Tool'
+                    echo 'Build Failed ' + params.Tool'
                     //slackSend color: "danger", message: "Build Failed"
                 }
             }
