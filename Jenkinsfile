@@ -2,6 +2,13 @@ def responseStatus = ''
 
 pipeline {
     agent any
+    
+     parameters 
+    {        
+        choice(name: "PARAM_TOOL", choices: ["gradle", "maven"], description: "Seleccione la herramienta de construcción")
+        booleanParam(name: "PARAM_UPLOAD", defaultValue: true, description: "Actualizar repositorio Nexus")
+    }
+        
     stages {
         stage('INFO'){
             steps{
@@ -23,11 +30,18 @@ pipeline {
 
         stage('Build'){
             steps{
-                echo 'Building: Workspace -> [${env.WORKSPACE}]'
-                //slackSend color: "warning", message: "Building..."                                                
+                echo 'Building: Workspace -> [${env.WORKSPACE}]'                
                 sh 'chmod -R 777 $WORKSPACE'
-                sh './gradlew build'
-
+                
+                script {
+                    if (params.PARAM_TOOL") == 'gradle') {
+                        echo 'Seleccionó Gradle'
+                        sh './gradlew build'
+                    } else {
+                        echo 'Seleccionó Maven'
+                        sh './gradlew build'
+                    }
+                }                                                                                                                     
             }
             post {
                 success {
