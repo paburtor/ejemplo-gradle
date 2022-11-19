@@ -137,23 +137,24 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Run Jar'){
-        //     steps{
-        //         echo 'Running Jar...'
-        //         slackSend color: "warning", message: "Running Jar..."
-        //         sh 'nohup java -jar ./DevOpsUsach2020-0.0.1.jar&'
-        //     }
-        //     post {
-        //         success {
-        //             echo 'Run Success'
-        //             slackSend color: "good", message: "Run Success"
-        //         }
-        //         failure {
-        //             echo 'Run Failed'
-        //             slackSend color: "danger", message: "Run Failed"
-        //         }
-        //     }
-        // }
+        stage('Run Jar'){
+            steps{
+                echo 'Running Jar...'
+                //slackSend color: "warning", message: "Running Jar..."
+                sh 'gradle bootRun&'
+                sh 'curl -X GET -u https://localhost:8081/rest/mscovid/test?msg=testing'
+            }
+            post {
+                success {
+                    echo 'Run Success'
+                    //slackSend color: "good", message: "Run Success"
+                }
+                failure {
+                    echo 'Run Failed'
+                    //slackSend color: "danger", message: "Run Failed"
+                }
+            }
+        }
         // stage('sleep'){
         //     steps{
         //         echo 'Sleeping...'
