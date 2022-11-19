@@ -27,7 +27,31 @@ pipeline {
                 }
             }
         }
-               
+        
+        stage('Build Gradle')
+        {
+            steps
+            {
+                if(params.Tool == 'gradle') {
+                    echo 'Build Gradle'
+                }
+                else
+                {
+                    echo 'Build Maven'
+                }
+            }
+            post {
+                success {
+                    echo 'Build Success $params.Tool'
+                    //slackSend color: "good", message: "Build Success"
+                }
+                failure {
+                    echo 'Build Failed $params.Tool'
+                    //slackSend color: "danger", message: "Build Failed"
+                }
+            }
+        }
+        
         stage('Build Gradle')
         {
             when { expression { return params.Tool == 'gradle'} }
