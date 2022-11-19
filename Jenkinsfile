@@ -2,8 +2,7 @@ node {
     def responseStatus = ''        
     stage('init')
     {
-        echo "Iniciando: Job -> [${env.JOB_NAME}] en Workspace -> [${env.WORKSPACE}]"
-        cleanWs()
+        echo "Iniciando: Job -> [${env.JOB_NAME}] en Workspace -> [${env.WORKSPACE}]"        
         //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
          // slackSend color: "good", message: "Info Success. hash commit : " + e
     }
@@ -15,7 +14,7 @@ node {
         echo "Workspace -> [${env.WORKSPACE}]"
         //sh 'chmod +wrx ${env.WORKSPACE}'
         //sh 'rm -rf /.mvn'
-        sh 'chmod -R 777 /var/jenkins_home/workspace/feature-gradle_feature-gradle'
+        sh 'chmod -R 777 ${env.WORKSPACE}'
         //sh 'find /var/jenkins_home/workspace/feature-gradle_feature-gradle -type d -exec chmod 755 {}'
         //sh 'chmod +x ./mvnw'
         //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
