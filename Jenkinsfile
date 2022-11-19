@@ -32,16 +32,17 @@ pipeline {
             steps{
                 echo 'Building: Workspace -> [${env.WORKSPACE}]'                
                 sh 'chmod -R 777 $WORKSPACE'
+                sh './gradlew build'
                 
-                script {
-                    if (params.PARAM_TOOL") == 'gradle') {
-                        echo 'Seleccionó Gradle'
+                //script {
+                //    if (params.PARAM_TOOL") == 'gradle') {
+                 //       echo 'Seleccionó Gradle'
                         sh './gradlew build'
-                    } else {
-                        echo 'Seleccionó Maven'
-                        sh './gradlew build'
-                    }
-                }                                                                                                                     
+                 //   } else {
+                  //      echo 'Seleccionó Maven'
+                    //    sh './gradlew build'
+                    //}
+                //}                                                                                                                     
             }
             post {
                 success {
