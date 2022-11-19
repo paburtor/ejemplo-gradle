@@ -19,14 +19,14 @@ node {
         stage('Test')
         {
             echo "(Pre) Testing"
-            sh './mvnw test -e'
+            sh 'mvn test -e'
             echo "(Post) Testing"
         }
         //slackSend color: "good", message: "Test Success"
         stage('Package')
         {
             echo "(Pre) Packaging"
-            sh './mvnw package -e'
+            sh 'mvn package -e'
             echo "(Post) Packaging"
         }
         
@@ -35,7 +35,7 @@ node {
         {
             echo '(Pre) Sonar'
             withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
-                sh './mvnw clean package sonar:sonar'
+                sh 'mvn clean package sonar:sonar'
             }
             echo '(Post) Sonar'
         }
@@ -44,7 +44,7 @@ node {
         stage('Upload Nexus')
         {
             echo '(Pre) Upload Nexus'
-            sh './mvn clean install -e'
+            sh 'mvn clean install -e'
             //nexusPublisher nexusInstanceId: 'nexus01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.danilovidal', packaging: 'jar', version: '0.0.1']]]
              nexusPublisher nexusInstanceId: 'nexusserverid', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.pedroaburto', packaging: 'jar', version: '0.0.1']]]
             // nexusPublisher nexusInstanceId: 'nexus01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.oscarreyes', packaging: 'jar', version: '0.0.1']]]
