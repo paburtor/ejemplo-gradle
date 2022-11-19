@@ -44,7 +44,7 @@ def call()
       echo '(Pre)Run & Test Maven'        
       //slackSend color: "warning", message: "Running Jar..."
       //sh 'java -jar ./build/libs/DevOpsUsach2020-0.0.1.jar &'
-      sh './mvnw bootRun&'
+      sh 'nohup bash mvnw.cmd spring-boot:run &'
       sleep(60)
       sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
       echo '(Post)Run & Test Maven'
