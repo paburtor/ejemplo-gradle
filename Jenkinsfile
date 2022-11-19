@@ -5,8 +5,8 @@ pipeline {
     
      parameters 
     {        
-        choice(name: "PARAM_TOOL", choices: ["gradle", "maven"], description: "Seleccione la herramienta de construcción")
-        booleanParam(name: "PARAM_UPLOAD", defaultValue: true, description: "Actualizar repositorio Nexus")
+        choice(name: "Tool", choices: ["gradle", "maven"], description: "Seleccione la herramienta de construcción")
+        booleanParam(name: "upload", defaultValue: true, description: "¿Actualizar repositorio Nexus?")
     }
         
     stages {
