@@ -37,7 +37,7 @@ pipeline {
                 sh 'chmod -R 777 $WORKSPACE'
                 sh './gradlew build'
             }                                               
-       }
+       
             post {
                 success {
                     echo 'Build Success Gradle'
@@ -59,7 +59,7 @@ pipeline {
                 sh 'chmod -R 777 $WORKSPACE'
                 sh './gradlew build'
             }                                               
-       }
+       
             post {
                 success {
                     echo 'Build Success Maven'
