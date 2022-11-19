@@ -5,8 +5,8 @@
 */
 
 def call()
-{
-	echo '${env.WORKSPACE}'
+{	
+	echo 'Hola'
 }
 
 return this;
