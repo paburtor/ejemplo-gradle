@@ -55,7 +55,7 @@ pipeline {
                     //slackSend color: "good", message: "Build Success"
                 }
                 failure {
-                    echo 'Build Failed ' + params.Tool'
+                    echo 'Build Failed ' + params.Tool
                     //slackSend color: "danger", message: "Build Failed"
                 }
             }
