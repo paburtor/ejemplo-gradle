@@ -39,15 +39,15 @@ pipeline {
                     {
                         echo 'Invocando script gradle.groovy'
                         script = load 'gradle.groovy'                                            
+                        script.call()   
                     }
                     else
                     {
                         echo 'Invocando script maven.groovy'
                         script = load 'maven.groovy'                        
+                        script.call()   
                     }
-                }
-                
-                script.call()    
+                }                                 
             }
             post {
                 success {
