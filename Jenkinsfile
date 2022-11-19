@@ -12,6 +12,7 @@ node {
     {        
         cleanWs()
         checkout scm
+        echo "Workspace -> [${env.WORKSPACE}]"
         //sh 'chmod +wrx ${env.WORKSPACE}'
         sh 'find ${env.WORKSPACE} -type d -exec chmod 755 {}'
         sh 'chmod +x ./mvnw'
