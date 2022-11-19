@@ -1,7 +1,3 @@
- parameters 
-{        
-        choice(name: "BUILD_CHOICE", choices: ["maven", "gradle"], description: "Seleccione la herramienta de cosntrucción del código")
-    }
 node {
     def responseStatus = ''        
     stage('init')
