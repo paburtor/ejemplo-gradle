@@ -58,24 +58,25 @@ pipeline {
         }
  */  
 
-  stage('Package')
-  {
-            steps{
-                echo 'Packaging...'
-                //slackSend color: "warning", message: "Packaging..."
-                sh './gradlew assemble'
-            }
-            post {
-                success {
-                    echo 'Package Success'
-                    //slackSend color: "good", message: "Package Success"
-                }
-                failure {
-                    echo 'Package Failed'
-                    //slackSend color: "danger", message: "Package Failed"
-                }
-            }
-        }
+//   stage('Package')
+//   {
+//             steps{
+//                 //Duda
+//                 echo 'Packaging...'
+//                 //slackSend color: "warning", message: "Packaging..."
+//                 sh './gradlew assemble'
+//             }
+//             post {
+//                 success {
+//                     echo 'Package Success'
+//                     //slackSend color: "good", message: "Package Success"
+//                 }
+//                 failure {
+//                     echo 'Package Failed'
+//                     //slackSend color: "danger", message: "Package Failed"
+//                 }
+//             }
+//         }
 
 //         stage('Sonar'){
 //             steps{
