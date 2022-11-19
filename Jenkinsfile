@@ -141,7 +141,8 @@ pipeline {
             steps{
                 echo 'Running Jar...'
                 //slackSend color: "warning", message: "Running Jar..."
-                sh 'gradle bootRun&'
+                sh './gradlew bootRun&'
+                sleep(120)
                 sh 'curl -X GET -u https://localhost:8081/rest/mscovid/test?msg=testing'
             }
             post {
