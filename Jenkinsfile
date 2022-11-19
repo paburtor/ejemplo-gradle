@@ -1,5 +1,10 @@
 node {
     def responseStatus = ''
+    
+    tools { 
+        maven 'Maven 3.8.6'        
+    }
+    
     stage('INFO'){
         echo 'Iniciando....'
         //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: " + env.BRANCH_NAME
