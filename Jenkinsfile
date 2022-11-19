@@ -11,7 +11,7 @@ node {
         stage('Build')
         {
             echo '(Pre) Building.................'
-            sh 'mvn clean compile -e'
+            sh './mvn clean compile -e'
             echo '(Post) Building'
         }
         
