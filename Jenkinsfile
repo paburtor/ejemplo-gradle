@@ -28,7 +28,7 @@ pipeline {
             }
         }
         
-        stage('Build Gradle')
+        stage('Build')
         {
             steps
             {
@@ -100,7 +100,8 @@ pipeline {
             }
         }
     
-        stage('Sonar'){
+        stage('Sonar')
+        {
             steps{
                 echo 'Sonar...'
                 withSonarQubeEnv('MySonarQubeServer') { // If you have configured more than one global server connection, you can specify its name
@@ -119,7 +120,8 @@ pipeline {
             }
         }
 
-        stage('Run & Test'){
+        stage('Run & Test')
+        {
             steps{
                 //No es necesario hacer Kill del proceso
                 echo 'Running Jar...'
@@ -141,7 +143,8 @@ pipeline {
             }
         }
 
-        stage('uploadNexus'){
+        stage('uploadNexus')
+        {
             steps{
                 echo 'Uploading to Nexus...'
                 //slackSend color: "warning", message: "Uploading to Nexus..."
