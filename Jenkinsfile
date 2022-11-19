@@ -32,12 +32,16 @@ pipeline {
         {
             steps
             {
-                if(params.Tool == 'gradle') {
-                    echo 'Build Gradle'
-                }
-                else
+                script
                 {
-                    echo 'Build Maven'
+                    if(params.Tool == 'gradle') 
+                    {
+                        echo 'Build Gradle'
+                    }
+                    else
+                    {
+                        echo 'Build Maven'
+                    }
                 }
             }
             post {
