@@ -11,9 +11,11 @@ pipeline {
     }
         
     stages {
-        stage('INFO'){
+        stage('INFO')
+        {
             steps{
                 echo 'Info...........'
+                echo "Nombre tag: $TAG_NAME"
                 //cleanWs()
                 //slackSend color: "warning", message: "INFO: Prueba Taller 3 - Modulo 4 Branch: ${GIT_BRANCH}"
             }
